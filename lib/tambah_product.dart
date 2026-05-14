@@ -17,7 +17,6 @@ class _AddProductPageState extends State<AddProductPage> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _descController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
-  final TextEditingController _githubController = TextEditingController();
 
   bool _isLoading = false;
 
@@ -27,9 +26,7 @@ class _AddProductPageState extends State<AddProductPage> {
 
     try {
       String? token = await _storage.read(key: 'token');
-      final url = Uri.parse(
-        'https://task.itprojects.web.id/api/products/submit',
-      );
+      final url = Uri.parse('https://task.itprojects.web.id/api/products');
 
       final response = await http.post(
         url,
@@ -42,7 +39,6 @@ class _AddProductPageState extends State<AddProductPage> {
           'name': _nameController.text,
           'description': _descController.text,
           'price': _priceController.text,
-          'github_url': _githubController.text,
         }),
       );
 
@@ -145,15 +141,6 @@ class _AddProductPageState extends State<AddProductPage> {
                         }
                         return null;
                       },
-                    ),
-                    const SizedBox(height: 16),
-
-                    _textField(
-                      controller: _githubController,
-                      label: "GitHub Repository URL",
-                      icon: Icons.code_rounded,
-                      hint: "https://github.com/...",
-                      validator: (v) => v!.isEmpty ? "Required" : null,
                     ),
                     const SizedBox(height: 16),
 
